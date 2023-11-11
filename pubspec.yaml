@@ -18,6 +18,7 @@ dependencies:
   dio: ^5.3.3
   get: ^4.6.6
   url_launcher: ^6.2.1
+  skeletonizer: ^0.8.0
 
 dev_dependencies:
   flutter_test:

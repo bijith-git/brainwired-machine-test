@@ -32,6 +32,7 @@ class UserController extends GetxController {
         response.data.map((e) {
           userList.add(User.fromJson(e));
         }).toList();
+        update();
       }
     } on DioException {
       rethrow;

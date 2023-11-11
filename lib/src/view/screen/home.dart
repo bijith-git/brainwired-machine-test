@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../../controller/controller.dart';
 import '../widget/widget.dart';
 
@@ -28,15 +29,20 @@ class _HomeScreenState extends State<HomeScreen> {
         init: UserController(),
         initState: (_) {},
         builder: (controller) {
-          return RefreshIndicator(
-            onRefresh: () => controller.getUserAPICAll(),
-            child: ListView.builder(
-                itemCount: controller.userList.length,
-                itemBuilder: (_, i) {
-                  var user = controller.userList[i];
-                  return UserTile(user: user, controller: controller);
-                }),
-          );
+          return Skeletonizer(
+              enabled: controller.isLoading,
+              child: RefreshIndicator(
+                onRefresh: () => controller.getUserAPICAll(),
+                child: ListView.separated(
+                    separatorBuilder: (_, __) => const SizedBox(height: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    itemCount: controller.userList.length,
+                    itemBuilder: (_, i) {
+                      var user = controller.userList[i];
+                      return UserTile(user: user, controller: controller);
+                    }),
+              ));
         },
       ),
     );
